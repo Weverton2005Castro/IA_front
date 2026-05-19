@@ -1,13 +1,6 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { signOut } from 'firebase/auth';
-import {
-  collection,
-  getDocs,
-  setDoc,
-  doc,
-  deleteDoc,
-} from 'firebase/firestore';
-
+import {collection, getDocs, setDoc, doc, deleteDoc} from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { sendChatMessage } from '../../services/api';
@@ -398,7 +391,7 @@ export default function Home() {
                     {conversation.title}
                   </h2>
 
-                  <p className="mt-1 truncate text-sm text-gray-400">
+                  <p className="mt-1 w-[180px] truncate text-sm text-gray-400">
                     {conversation.lastMessage}
                   </p>
                 </button>
