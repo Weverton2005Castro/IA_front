@@ -1,6 +1,6 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
 import { signOut } from 'firebase/auth';
-import {collection, getDocs, setDoc, doc, deleteDoc} from 'firebase/firestore';
+import { collection, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { sendChatMessage } from '../../services/api';
@@ -412,20 +412,31 @@ export default function Home() {
         </div>
 
         {/* USER */}
+        {/* USER */}
         <div className="flex items-center gap-3 border-t border-white/10 p-4">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 font-bold">
-            W
-          </div>
 
-          <div>
-            <h3 className="font-semibold">
-              Weverton
+          {auth.currentUser?.photoURL ? (
+            <img
+              src={auth.currentUser.photoURL}
+              alt="Foto do usuário"
+              className="h-11 w-11 rounded-full object-cover"
+            />
+          ) : (
+            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blue-600 font-bold">
+              {auth.currentUser?.displayName?.charAt(0) || 'U'}
+            </div>
+          )}
+
+          <div className="min-w-0">
+            <h3 className="truncate font-semibold">
+              {auth.currentUser?.displayName || 'Usuário'}
             </h3>
 
-            <p className="text-sm text-gray-400">
-              Online
+            <p className="truncate text-sm text-gray-400">
+              {auth.currentUser?.email}
             </p>
           </div>
+
         </div>
       </aside>
 
