@@ -1,4 +1,8 @@
 import { useMemo, useState, useEffect, useRef } from 'react';
+import ReactMarkdown from "react-markdown"
+import remarkGfm from 'remark-gfm';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { signOut } from 'firebase/auth';
 import { collection, getDocs, setDoc, doc, deleteDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -516,11 +520,42 @@ export default function Home() {
                           : 'rounded-2xl rounded-bl-md border border-white/10 bg-white/10 backdrop-blur-sm'}
                       `}
                     >
-                      <p className="whitespace-pre-wrap break-words leading-7 text-gray-100">
-                        {
-                          conversationMessage.content
-                        }
-                      </p>
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          code({
+                            inline,
+                            className,
+                            children,
+                            ...props
+                          }) {
+                            const match = /language-(\w+)/.exec(
+                              className || ''
+                            );
+
+                            return !inline && match ? (
+                              <SyntaxHighlighter
+                                style={oneDark}
+                                language={match[1]}
+                                PreTag="div"
+                                className="rounded-xl"
+                                {...props}
+                              >
+                                {String(children).replace(/\n$/, '')}
+                              </SyntaxHighlighter>
+                            ) : (
+                              <code
+                                className="rounded bg-black/40 px-1 py-0.5 text-blue-300"
+                                {...props}
+                              >
+                                {children}
+                              </code>
+                            );
+                          },
+                        }}
+                      >
+                        {conversationMessage.content}
+                      </ReactMarkdown>
                     </div>
                   </div>
                 )
