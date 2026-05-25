@@ -18,7 +18,10 @@
     "openai": "^6.37.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router-dom": "^7.15.0"
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.15.0",
+    "react-syntax-highlighter": "^16.1.1",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.1.1",
