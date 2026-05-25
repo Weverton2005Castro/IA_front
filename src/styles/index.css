@@ -62,3 +62,7 @@ input {
   color: #93c5fd;
   overflow-wrap: anywhere;
 }
+
+.overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+}

@@ -289,7 +289,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex min-h-dvh overflow-hidden bg-[#0f172a] text-white">
+    <div className="flex h-dvh overflow-hidden bg-[#0f172a] text-white">
 
       {/* OVERLAY MOBILE */}
       {isSidebarOpen && (
@@ -310,6 +310,7 @@ export default function Home() {
           z-50
           flex
           h-dvh
+          min-h-0
           w-[min(84vw,300px)]
           flex-col
           border-r
@@ -363,7 +364,7 @@ export default function Home() {
         </div>
 
         {/* LISTA */}
-        <div className="flex-1 space-y-2 overflow-y-auto px-3 pb-3">
+        <div className="min-h-0 flex-1 space-y-2 overflow-y-auto px-3 pb-3">
           {conversations.map(
             (conversation) => (
               <div
@@ -447,7 +448,7 @@ export default function Home() {
       </aside>
 
       {/* MAIN */}
-      <main className="flex min-w-0 flex-1 flex-col bg-[#0b1120]">
+      <main className="flex min-h-0 min-w-0 flex-1 flex-col bg-[#0b1120]">
 
         {/* HEADER */}
         <header className="flex min-h-[64px] items-center justify-between gap-3 border-b border-white/10 px-3 md:min-h-[70px] md:px-8">
@@ -485,7 +486,7 @@ export default function Home() {
         </header>
 
         {/* MENSAGENS */}
-        <div className="flex-1 space-y-4 overflow-y-auto px-3 py-4 md:space-y-6 md:p-8">
+        <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-3 py-4 md:space-y-6 md:p-8">
 
           {activeConversation?.messages
             ?.length ? (
