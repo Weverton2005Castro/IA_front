@@ -14,6 +14,13 @@ body,
   min-height: 100%;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   background: #0b1120;
@@ -26,4 +33,32 @@ button,
 textarea,
 input {
   font: inherit;
+}
+
+.chat-message {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.chat-message p,
+.chat-message ul,
+.chat-message ol,
+.chat-message pre,
+.chat-message table {
+  max-width: 100%;
+}
+
+.chat-message pre,
+.chat-message table {
+  overflow-x: auto;
+}
+
+.chat-message table {
+  display: block;
+  border-collapse: collapse;
+}
+
+.chat-message a {
+  color: #93c5fd;
+  overflow-wrap: anywhere;
 }

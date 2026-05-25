@@ -289,7 +289,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#0f172a] text-white">
+    <div className="flex min-h-dvh overflow-hidden bg-[#0f172a] text-white">
 
       {/* OVERLAY MOBILE */}
       {isSidebarOpen && (
@@ -309,8 +309,8 @@ export default function Home() {
           top-0
           z-50
           flex
-          h-full
-          w-[280px]
+          h-dvh
+          w-[min(84vw,300px)]
           flex-col
           border-r
           border-white/10
@@ -323,6 +323,8 @@ export default function Home() {
             : '-translate-x-full'}
 
           md:relative
+          md:h-auto
+          md:w-[280px]
           md:translate-x-0
         `}
       >
@@ -395,7 +397,7 @@ export default function Home() {
                     {conversation.title}
                   </h2>
 
-                  <p className="mt-1 w-[180px] truncate text-sm text-gray-400">
+                  <p className="mt-1 max-w-[190px] truncate text-sm text-gray-400">
                     {conversation.lastMessage}
                   </p>
                 </button>
@@ -445,16 +447,16 @@ export default function Home() {
       </aside>
 
       {/* MAIN */}
-      <main className="flex flex-1 flex-col bg-[#0b1120]">
+      <main className="flex min-w-0 flex-1 flex-col bg-[#0b1120]">
 
         {/* HEADER */}
-        <header className="flex min-h-[70px] items-center justify-between border-b border-white/10 px-4 md:px-8">
+        <header className="flex min-h-[64px] items-center justify-between gap-3 border-b border-white/10 px-3 md:min-h-[70px] md:px-8">
 
-          <div className="flex items-center gap-3">
+          <div className="flex min-w-0 items-center gap-3">
 
             {/* MENU MOBILE */}
             <button
-              className="text-2xl md:hidden"
+              className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/5 text-2xl md:hidden"
               onClick={() =>
                 setIsSidebarOpen(true)
               }
@@ -462,20 +464,20 @@ export default function Home() {
               ☰
             </button>
 
-            <div>
-              <h2 className="max-w-[180px] truncate text-lg font-semibold md:max-w-full md:text-xl">
+            <div className="min-w-0">
+              <h2 className="max-w-[46vw] truncate text-base font-semibold md:max-w-full md:text-xl">
                 {activeConversation?.title ||
                   'Nova conversa'}
               </h2>
 
-              <p className="text-sm text-gray-400">
-                Modelo: GPT-4.1 Mini
+              <p className="truncate text-xs text-gray-400 md:text-sm">
+                Modelo: OpenRouter
               </p>
             </div>
           </div>
 
           <button
-            className="rounded-xl bg-red-500 px-4 py-2 text-sm font-medium transition hover:bg-red-600 md:px-5"
+            className="shrink-0 rounded-xl bg-red-500 px-3 py-2 text-xs font-medium transition hover:bg-red-600 md:px-5 md:text-sm"
             onClick={handleLogout}
           >
             Logout
@@ -483,7 +485,7 @@ export default function Home() {
         </header>
 
         {/* MENSAGENS */}
-        <div className="flex-1 space-y-4 overflow-y-auto p-4 md:space-y-6 md:p-8">
+        <div className="flex-1 space-y-4 overflow-y-auto px-3 py-4 md:space-y-6 md:p-8">
 
           {activeConversation?.messages
             ?.length ? (
@@ -505,8 +507,10 @@ export default function Home() {
                   >
                     <div
                       className={`
-                        max-w-[90%]
-                        px-4
+                        chat-message
+                        max-w-[94%]
+                        overflow-hidden
+                        px-3
                         py-3
                         text-sm
                         md:max-w-[700px]
@@ -538,14 +542,18 @@ export default function Home() {
                                 style={oneDark}
                                 language={match[1]}
                                 PreTag="div"
-                                className="rounded-xl"
+                                className="max-w-full overflow-x-auto rounded-xl"
+                                customStyle={{
+                                  margin: 0,
+                                  maxWidth: '100%',
+                                }}
                                 {...props}
                               >
                                 {String(children).replace(/\n$/, '')}
                               </SyntaxHighlighter>
                             ) : (
                               <code
-                                className="rounded bg-black/40 px-1 py-0.5 text-blue-300"
+                                className="break-words rounded bg-black/40 px-1 py-0.5 text-blue-300"
                                 {...props}
                               >
                                 {children}
@@ -563,7 +571,7 @@ export default function Home() {
 
               {isAssistantTyping && (
                 <div className="flex justify-start">
-                  <div className="max-w-[90%] rounded-2xl rounded-bl-md border border-white/10 bg-white/10 px-4 py-3 text-sm text-gray-300 md:max-w-[700px] md:px-5 md:py-4 md:text-base">
+                  <div className="max-w-[94%] rounded-2xl rounded-bl-md border border-white/10 bg-white/10 px-3 py-3 text-sm text-gray-300 md:max-w-[700px] md:px-5 md:py-4 md:text-base">
                     Respondendo...
                   </div>
                 </div>
@@ -588,9 +596,9 @@ export default function Home() {
         </div>
 
         {/* INPUT */}
-        <div className="border-t border-white/10 bg-[#111827] p-4 md:p-6">
+        <div className="border-t border-white/10 bg-[#111827] p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))] md:p-6">
 
-          <div className="mx-auto flex max-w-[1100px] items-end gap-3">
+          <div className="mx-auto flex max-w-[1100px] items-end gap-2 md:gap-3">
 
             <textarea
               placeholder="Digite sua mensagem..."
@@ -610,35 +618,44 @@ export default function Home() {
                 }
               }}
               className="
-                min-h-[60px]
+                max-h-36
+                min-h-[52px]
+                min-w-0
                 flex-1
                 resize-none
-                rounded-2xl
+                rounded-xl
                 border
                 border-white/10
                 bg-white/5
-                p-4
+                px-3
+                py-3
                 text-sm
                 text-white
                 outline-none
                 placeholder:text-gray-400
+                md:min-h-[60px]
+                md:rounded-2xl
+                md:p-4
                 md:text-base
               "
             />
 
             <button
               className="
-                h-[60px]
-                rounded-2xl
+                h-[52px]
+                shrink-0
+                rounded-xl
                 bg-blue-600
-                px-5
+                px-4
                 text-sm
                 font-semibold
                 transition
                 hover:bg-blue-700
                 disabled:cursor-not-allowed
                 disabled:bg-blue-900
+                md:h-[60px]
                 md:px-8
+                md:rounded-2xl
                 md:text-base
               "
               onClick={handleSendMessage}
