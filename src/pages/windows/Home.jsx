@@ -418,7 +418,7 @@ export default function Home() {
           )}
         </div>
 
-        {/* USER */}
+
         {/* USER */}
         <div className="flex items-center gap-3 border-t border-white/10 p-4">
 
@@ -448,10 +448,18 @@ export default function Home() {
       </aside>
 
       {/* MAIN */}
-      <main className="flex min-h-0 min-w-0 flex-1 flex-col bg-[#0b1120]">
+      <main className="
+        flex
+        min-h-0
+        min-w-0
+        flex-1
+        flex-col
+        bg-[#0b1120]
+        pt-[env(safe-area-inset-top)]
+        ">
 
         {/* HEADER */}
-        <header className="flex min-h-[64px] items-center justify-between gap-3 border-b border-white/10 px-3 md:min-h-[70px] md:px-8">
+        <header className="flex min-h-[74px] items-center justify-between gap-3 border-b border-white/10 px-3 md:min-h-[70px] md:px-8">
 
           <div className="flex min-w-0 items-center gap-3">
 
